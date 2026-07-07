@@ -20,8 +20,6 @@ An end-to-end recruitment automation. When a candidate submits a job application
 - Google Sheets API
 - Gmail API
 
-![Job Application Workflow](screenshot-job-application.png)
-
 ---
 
 ## About Me
