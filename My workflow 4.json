@@ -1,0 +1,183 @@
+{
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Employment Form ",
+        "formDescription": "AI & Automation Developer specializing in workflow \nautomation, AI integration, and data processing \nusing n8n and modern AI tools",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What is your name?"
+            },
+            {
+              "fieldLabel": "What is your email?"
+            },
+            {
+              "fieldLabel": "what is your phone number?"
+            },
+            {
+              "fieldLabel": "Add your CV"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f6eb7c3-3ed4-42dc-84c6-3fb6e47c3218",
+      "name": "On form submission",
+      "webhookId": "3e089c6f-fcb2-4be7-808a-64739d3832db"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WQRdEAfSUewSYGsQGJEpYVxRF6heroQyZKf-m0Jh4kM",
+          "mode": "list",
+          "cachedResultName": "Employment form ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WQRdEAfSUewSYGsQGJEpYVxRF6heroQyZKf-m0Jh4kM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WQRdEAfSUewSYGsQGJEpYVxRF6heroQyZKf-m0Jh4kM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json['What is your name?'] }}",
+            "Phone Numner ": "={{ $json['what is your phone number?'] }}",
+            "Email": "={{ $json['What is your email?'] }}",
+            "interest domain ": "={{ $json['Add your CV'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Numner ",
+              "displayName": "Phone Numner ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interest domain ",
+              "displayName": "interest domain ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        0
+      ],
+      "id": "298dc518-b2bc-41a9-b65a-555957a888a2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UEuVQwjTZg0UJpe2",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Employment Application Form ",
+        "message": "={{ $('On form submission').item.json['What is your email?'] }} Your online employment form is recieved \nregards",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "dcb77cd3-23c3-40f1-8d57-ca66a6fe0290",
+      "name": "email to applicant",
+      "webhookId": "d314486b-4145-4938-aaad-41ef3202c277",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "PcgwZKKyoTozJI3w",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "email to applicant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a668f687-28ad-47f7-9425-b4554abccfc7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "34c9f3a0fda6e6c39ee6d09eaa9857e4c5b1ec39cffe7acff777638e4bae2a66"
+  },
+  "nodeGroups": [],
+  "id": "2c1EJr13l5vDSH87",
+  "tags": []
+}
